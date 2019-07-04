@@ -16,7 +16,7 @@ def min_max_normalize_one_image(image):
 
     max_int = image.max()
     min_int = image.min()
-    out = (image - max_int) / (max_int - min_int)
+    out = (image - min_int) / (max_int - min_int)
 
     return out
 
