@@ -57,18 +57,16 @@ def main():
         train=False
     )
 
-    c_weight = np.ones((args.nclass)).astype(np.float32)
-    if args.gpu >= 0:
-        c_weight = cuda.to_gpu(c_weight)
-        use_cudnn = True
-    else:
-        use_cudnn = False
+    #c_weight = np.ones((args.nclass)).astype(np.float32)
+    # if args.gpu >= 0:
+    #     c_weight = cuda.to_gpu(c_weight)
+    #     use_cudnn = True
+    # else:
+    #     use_cudnn = False
 
     model = Classifier(
         CCM(
-            class_weight=c_weight,
-            n_class=args.nclass,
-            use_cudnn=use_cudnn
+            n_class=args.nclass
             ), lossfun=F.softmax_cross_entropy
         )
 
@@ -129,14 +127,14 @@ def main():
         extension=extensions.LogReport()
     )
 
-    # PrintReport
-    # trainer.extend(
-    #     extension=extensions.PrintReport([
-    #         'epoch', 'iteration',
-    #         'main/loss', 'validation/main/loss',
-    #         'main/accuracy', 'validation/main/accuracy',
-    #         'elapsed_time'])
-    # )
+    PrintReport
+    trainer.extend(
+        extension=extensions.PrintReport([
+            'epoch', 'iteration',
+            'main/loss', 'validation/main/loss',
+            'main/accuracy', 'validation/main/accuracy',
+            'elapsed_time'])
+    )
 
     #trainer.extend(extensions.ProgressBar(update_interval=eval(args.report_trigger)[0]))
 

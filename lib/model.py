@@ -10,10 +10,8 @@ import chainer.links as L
 from chainer.training import extensions
 
 class CellClassificationModel(Chain):
-    def __init__(self, class_weight, n_class=2, use_cudnn=False):
+    def __init__(self, n_class=10):
         initializer = chainer.initializers.HeNormal()
-        self.class_weight = class_weight
-        self.use_cudnn = use_cudnn
         super(CellClassificationModel, self).__init__(
             conv1 = L.Convolution2D(None, 32,  11, initialW=initializer),
             bn1 = L.BatchNormalization(32),
