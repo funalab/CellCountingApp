@@ -3,13 +3,7 @@ from glob import glob
 import random
 import numpy as np
 import chainer
-import matplotlib
 import skimage.io as io
-from skimage import morphology as mor
-from skimage import measure
-from skimage.color import rgb2gray
-from scipy.misc import imread, imresize
-
 
 def min_max_normalize_one_image(image):
     """
@@ -25,32 +19,6 @@ def min_max_normalize_one_image(image):
     out = (image - max_int) / (max_int - min_int)
 
     return out
-
-def read_img(path, arr_type='tif'):
-    """ read image array from path
-    Args:
-        path (str)          : path to directory which images are stored.
-        arr_type (str)      : type of reading file {'npz','jpg','png','tif'}
-    Returns:
-        image (np.ndarray)  : image array
-    """
-    if arr_type == 'npz':
-        image = np.load(path)['arr_0']
-    elif arr_type in ('png', 'jpg'):
-        image = imread(path, mode='L')
-    elif arr_type == 'tif':
-        image = io.imread(path)
-    else:
-        raise ValueError('invalid --input_type : {}'.format(arr_type))
-
-    # ndim == 2
-    if image.ndim >= 3:
-        image = rgb2gray(image)
-    # normalization
-    image = image.astype(np.float32) / image.max()
-    #image = min_max_normalize_one_image(image.astype(np.float32))
-    return image
-
 
 def crop_pair_2d(
         image1,
