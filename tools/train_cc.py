@@ -127,7 +127,7 @@ def main():
         extension=extensions.LogReport()
     )
 
-    PrintReport
+    # PrintReport
     trainer.extend(
         extension=extensions.PrintReport([
             'epoch', 'iteration',
@@ -136,7 +136,7 @@ def main():
             'elapsed_time'])
     )
 
-    #trainer.extend(extensions.ProgressBar(update_interval=eval(args.report_trigger)[0]))
+    trainer.extend(extensions.ProgressBar(update_interval=eval(args.report_trigger)[0]))
 
     # PlotReport
     trainer.extend(
