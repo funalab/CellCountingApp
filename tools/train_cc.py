@@ -1,12 +1,5 @@
 # -*- coding: utf-8 -*-
 
-'''
-Label Annotation
-0: 100
-1: 500
-2: 1000
-'''
-
 import chainer
 from chainer import cuda
 import chainer.functions as F
@@ -137,13 +130,13 @@ def main():
     )
 
     # PrintReport
-    trainer.extend(
-        extension=extensions.PrintReport([
-            'epoch', 'iteration',
-            'main/loss', 'validation/main/loss',
-            'main/accuracy', 'validation/main/accuracy',
-            'elapsed_time'])
-    )
+    # trainer.extend(
+    #     extension=extensions.PrintReport([
+    #         'epoch', 'iteration',
+    #         'main/loss', 'validation/main/loss',
+    #         'main/accuracy', 'validation/main/accuracy',
+    #         'elapsed_time'])
+    # )
 
     #trainer.extend(extensions.ProgressBar(update_interval=eval(args.report_trigger)[0]))
 
