@@ -116,8 +116,8 @@ def main():
     evaluator = extensions.Evaluator(validation_iter, model, device=args.gpu)
     trainer.extend(evaluator, trigger=(1, 'epoch'))
 
-    trigger = triggers.MaxValueTrigger('validation/main/mean_accuracy', trigger=(1, 'epoch'))
-    trainer.extend(extensions.snapshot_object(model, filename='best_mean_acc_model'), trigger=trigger)
+    trigger = triggers.MaxValueTrigger('validation/main/accuracy', trigger=(1, 'epoch'))
+    trainer.extend(extensions.snapshot_object(model, filename='best_acc_model'), trigger=trigger)
 
     trainer.extend(chainer.training.extensions.observe_lr(), trigger=(1, 'epoch'))
 
@@ -136,7 +136,7 @@ def main():
             'elapsed_time'])
     )
 
-    trainer.extend(extensions.ProgressBar(update_interval=eval(args.report_trigger)[0]))
+    # trainer.extend(extensions.ProgressBar(update_interval=1))
 
     # PlotReport
     trainer.extend(
@@ -147,7 +147,6 @@ def main():
             ['main/accuracy', 'validation/main/accuracy'], 'epoch', file_name='accuracy.png'))
 
     trainer.extend(extensions.dump_graph('main/loss'))
-
     trainer.run()
 
 
