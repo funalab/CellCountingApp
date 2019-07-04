@@ -37,7 +37,7 @@ def main():
     ap.add_argument('--epoch', '-e', type=int, default=10, help='Specify number of sweeps over the dataset to train')
     ap.add_argument('--batchsize', '-b', type=int, default=5, help='Specify Batchsize')
     ap.add_argument('--crop_size', nargs='?', default='(640, 640)', help='Specify crop size (default (y,x) = (640,640))')
-    ap.add_argument('--coordinate', nargs='?', default='(780, 1480)', help='Specify initial coordinate (default (y,x) = (780,1480))')
+    ap.add_argument('--coordinate', nargs='?', default='(780, 1480)', help='Specify initial coordinate (default (y,x) = (1840,700))')
     ap.add_argument('--nclass', type=int, default=10, help='Specify classification class')
 
     args = ap.parse_args()

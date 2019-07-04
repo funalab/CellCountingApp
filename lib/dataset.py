@@ -24,7 +24,7 @@ def crop_pair_2d(
         image1,
         image2=None,
         crop_size=(640, 640),       # (y, x)
-        coordinate=(780, 1480),     # (y, x)
+        coordinate=(1840, 700),     # (y, x)
         aug_flag=True
 ):
     """ 2d {image, label} patches are cropped from array.
@@ -90,8 +90,8 @@ class PreprocessedDataset(chainer.dataset.DatasetMixin):
         img_a = np.rot90(io.imread(os.path.join(self._root_path, self.split_list[i], 'a.jpeg'))).transpose(2, 0, 1)
         img_b = np.rot90(io.imread(os.path.join(self._root_path, self.split_list[i], 'b.jpeg'))).transpose(2, 0, 1)
         images[0:3, :, :], images[3:6, :, :] = crop_pair_2d(img_a, img_b, crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train)
-        for ch in range(len(images)):
-            images[ch] = min_max_normalize_one_image(images[ch])
+        for ch in range(2)):
+            images[ch*3:(ch+1)*3] = min_max_normalize_one_image(images[ch*3:(ch+1)*3])
         return images
 
     def _get_label(self, i):
