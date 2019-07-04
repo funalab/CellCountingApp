@@ -1,0 +1,10 @@
+# MacOSX
+.DS_Store
+
+# Python
+*.pyc
+__pycache__
+
+# dir
+datasets
+results
