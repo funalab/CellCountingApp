@@ -15,9 +15,11 @@ import os
 import numpy as np
 from datetime import datetime
 import pytz
-from skimage import io
 from argparse import ArgumentParser
+import matplotlib as mpl
+
 sys.path.append(os.getcwd())
+mpl.use('Agg')
 
 from lib.dataset import PreprocessedDataset
 from lib.model import CellClassificationModel as CCM
@@ -57,13 +59,6 @@ def main():
         train=False
     )
 
-    #c_weight = np.ones((args.nclass)).astype(np.float32)
-    # if args.gpu >= 0:
-    #     c_weight = cuda.to_gpu(c_weight)
-    #     use_cudnn = True
-    # else:
-    #     use_cudnn = False
-
     model = Classifier(
         CCM(
             n_class=args.nclass
@@ -94,7 +89,6 @@ def main():
 
     ''' Trainer '''
     current_datetime = datetime.now(pytz.timezone('Asia/Tokyo')).strftime('%Y%m%d_%H%M%S')
-    #save_dir = os.path.join(args.out, current_datetime)
     save_dir = args.outdir + '_' + str(current_datetime)
     os.makedirs(save_dir, exist_ok=True)
     trainer = training.Trainer(updater, stop_trigger=(args.epoch, 'epoch'), out=save_dir)
