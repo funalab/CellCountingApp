@@ -44,6 +44,7 @@ def main():
     argvs = sys.argv
     psep = '/'
 
+    print('init dataset...')
     train_dataset = PreprocessedDataset(
         path=args.indir,
         split_list=args.train_list,
@@ -59,6 +60,7 @@ def main():
         train=False
     )
 
+    print('init model construction')
     model = Classifier(
         CCM(
             n_class=args.nclass
@@ -73,12 +75,16 @@ def main():
         chainer.cuda.get_device_from_id(args.gpu).use()
         model.to_gpu()
 
-    optimizer = chainer.optimizers.Adam()
+    print('init optimizer...')
+    #optimizer = chainer.optimizers.Adam()
+    optimizer = chainer.optimizers.SGD(lr=0.01)
+    #optimizer = chainer.optimizers.MomentumSGD(lr=0.01)
     optimizer.setup(model)
-    optimizer.add_hook(chainer.optimizer_hooks.WeightDecay(rate=0.0005))
+    optimizer.add_hook(chainer.optimizer_hooks.WeightDecay(rate=0.0001))
 
 
     ''' Updater '''
+    print('init updater')
     train_iter = chainer.iterators.SerialIterator(
         train_dataset, batch_size=args.batchsize)
     validation_iter = chainer.iterators.SerialIterator(
@@ -92,7 +98,6 @@ def main():
     save_dir = args.outdir + '_' + str(current_datetime)
     os.makedirs(save_dir, exist_ok=True)
     trainer = training.Trainer(updater, stop_trigger=(args.epoch, 'epoch'), out=save_dir)
-
 
     '''
     Extensions:
@@ -109,6 +114,8 @@ def main():
 
     evaluator = extensions.Evaluator(validation_iter, model, device=args.gpu)
     trainer.extend(evaluator, trigger=(1, 'epoch'))
+
+    #trainer.extend(extensions.ExponentialShift('lr', 0.5), trigger=(50, 'epoch'))
 
     trigger = triggers.MaxValueTrigger('validation/main/accuracy', trigger=(1, 'epoch'))
     trainer.extend(extensions.snapshot_object(model, filename='best_acc_model'), trigger=trigger)
@@ -129,8 +136,6 @@ def main():
             'main/accuracy', 'validation/main/accuracy',
             'elapsed_time'])
     )
-
-    # trainer.extend(extensions.ProgressBar(update_interval=1))
 
     # PlotReport
     trainer.extend(
