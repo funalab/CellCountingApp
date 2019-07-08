@@ -145,9 +145,9 @@ class PreprocessedRegressionDataset(chainer.dataset.DatasetMixin):
             label = float(self.split_list[i][:self.split_list[i].find('_')])
         except:
             label = float(self.split_list[i][:self.split_list[i].find('/')])
-        return label
+        return np.array([label]) / 10.0
 
     def get_example(self, i):
         # It reads the i-th image/label pair and return a preprocessed image.
         x, y = self._get_image(i), self._get_label(i)
-        return x.astype(np.float32), y
+        return x.astype(np.float32), y.astype(np.float32)

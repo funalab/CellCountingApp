@@ -75,8 +75,8 @@ def main():
         model.to_gpu()
 
     print('init optimizer...')
-    #optimizer = chainer.optimizers.Adam()
-    optimizer = chainer.optimizers.SGD(lr=0.01)
+    optimizer = chainer.optimizers.Adam()
+    #optimizer = chainer.optimizers.SGD(lr=0.001)
     #optimizer = chainer.optimizers.MomentumSGD(lr=0.01)
     optimizer.setup(model)
     optimizer.add_hook(chainer.optimizer_hooks.WeightDecay(rate=0.0001))
@@ -114,7 +114,7 @@ def main():
     evaluator = extensions.Evaluator(validation_iter, model, device=args.gpu)
     trainer.extend(evaluator, trigger=(1, 'epoch'))
 
-    #trainer.extend(extensions.ExponentialShift('lr', 0.5), trigger=(50, 'epoch'))
+    #trainer.extend(extensions.ExponentialShift('lr', 0.1), trigger=(50, 'epoch'))
 
     trigger = triggers.MinValueTrigger('validation/main/loss', trigger=(1, 'epoch'))
     trainer.extend(extensions.snapshot_object(model, filename='best_loss_model'), trigger=trigger)
