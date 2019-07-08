@@ -22,9 +22,9 @@ import matplotlib as mpl
 sys.path.append(os.getcwd())
 mpl.use('Agg')
 
-from lib.dataset import PreprocessedClassificationDataset
+from lib.dataset import PreprocessedRegressionDataset
 from lib.model import CellClassificationModel as CCM
-from lib.wrapper import Classifier
+from lib.wrapper import Regressor
 
 def main():
 
@@ -47,7 +47,7 @@ def main():
 
 
     print('init dataset...')
-    test_dataset = PreprocessedClassificationDataset(
+    test_dataset = PreprocessedRegressionDataset(
         path=args.indir,
         split_list=args.test_list,
         crop_size=args.crop_size,
@@ -56,10 +56,10 @@ def main():
     )
 
     print('init model construction')
-    model = Classifier(
+    model = Regressor(
         CCM(
-            n_class=args.nclass
-            ), lossfun=F.softmax_cross_entropy
+            n_class=1
+            ), lossfun=F.mean_squared_error
         )
 
     if args.init_model is not None:
@@ -76,15 +76,14 @@ def main():
 
     tp_cnt = 0
     for num in range(test_dataset.__len__()):
-        input, _ = test_dataset.get_example(num)
-        label = float(test_dataset.split_list[num][:test_dataset.split_list[num].find('_')])
+        input, label = test_dataset.get_example(num)
         x = np.expand_dims(input, axis=0)
         if args.gpu >= 0:
             x = chainer.cuda.to_gpu(x)
         y = model.predict(x)
         if args.gpu >= 0:
             y = chainer.cuda.to_cpu(y.data)
-        pre = np.argmax(softmax.softmax(y).data[0]) + 1
+        pre = y[0] * 10
 
         if int(round(label)) == pre:
             print('True')
