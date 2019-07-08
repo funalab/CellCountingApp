@@ -64,7 +64,7 @@ class Regressor(link.Chain):
 
         # loss
         loss = self.lossfun(y, t)
-        with chainer.no_backprop_mode():
+        # with chainer.no_backprop_mode():
             # accuracy
             # accuracy = F.accuracy(y, t)
         # reporter
