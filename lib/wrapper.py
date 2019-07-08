@@ -48,7 +48,7 @@ class Regressor(link.Chain):
             predictor,
             lossfun=F.mean_squared_error
     ):
-        super(Classifier, self).__init__()
+        super(Regressor, self).__init__()
         with self.init_scope():
             self.predictor = predictor
             self.lossfun = lossfun

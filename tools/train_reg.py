@@ -63,7 +63,7 @@ def main():
     model = Regressor(
         CCM(
             n_class=1
-            ), lossfun=F.softmax_cross_entropy
+            ), lossfun=F.mean_squared_error
         )
 
     if args.init_model is not None:
