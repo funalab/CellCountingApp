@@ -93,7 +93,8 @@ class PreprocessedDataset(chainer.dataset.DatasetMixin):
         return np.concatenate([img_a, img_b])
 
     def _get_label(self, i):
-        label = int(float(self.split_list[i][:self.split_list[i].find('_')])) - 1
+        #label = int(self.split_list[i][:self.split_list[i].find('_')]) - 1
+        label = int(self.split_list[i][:self.split_list[i].find('_')])
         return label
 
     def get_example(self, i):
