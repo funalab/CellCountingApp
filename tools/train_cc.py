@@ -21,7 +21,7 @@ import matplotlib as mpl
 sys.path.append(os.getcwd())
 mpl.use('Agg')
 
-from lib.dataset import PreprocessedDataset
+from lib.dataset import PreprocessedClassificationDataset
 from lib.model import CellClassificationModel as CCM
 from lib.wrapper import Classifier
 
@@ -45,14 +45,14 @@ def main():
     psep = '/'
 
     print('init dataset...')
-    train_dataset = PreprocessedDataset(
+    train_dataset = PreprocessedClassificationDataset(
         path=args.indir,
         split_list=args.train_list,
         crop_size=args.crop_size,
         coordinate=args.coordinate,
         train=True
     )
-    validation_dataset = PreprocessedDataset(
+    validation_dataset = PreprocessedClassificationDataset(
         path=args.indir,
         split_list=args.validation_list,
         crop_size=args.crop_size,

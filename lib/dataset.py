@@ -59,7 +59,54 @@ def crop_pair_2d(
     return cropped_image1
 
 
-class PreprocessedDataset(chainer.dataset.DatasetMixin):
+class PreprocessedClassificationDataset(chainer.dataset.DatasetMixin):
+    def __init__(
+            self,
+            path,
+            split_list,
+            crop_size='(640, 640)',
+            coordinate='(780, 1480)',
+            train=True
+    ):
+        """ Dataset preprocessing parameters
+        Args:
+            path (str)      : /path/to/root/directory/{images,labels}/are/located
+            split_list (str): /path/to/{train, validation}_list.txt
+        """
+        self._root_path = path
+        with open(split_list) as f:
+            self.split_list = [line.rstrip() for line in f]
+        self.crop_size = eval(crop_size)
+        self.coordinate = eval(coordinate)
+        self.train = train
+
+    def __len__(self):
+        return len(self.split_list)
+
+    def _get_image(self, i):
+        img_a = min_max_normalize_one_image(crop_pair_2d(
+            np.rot90(io.imread(os.path.join(self._root_path, self.split_list[i], 'a.jpeg'))).transpose(2, 0, 1)
+            , crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
+        img_b = min_max_normalize_one_image(crop_pair_2d(
+            np.rot90(io.imread(os.path.join(self._root_path, self.split_list[i], 'b.jpeg'))).transpose(2, 0, 1)
+            , crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
+        return np.concatenate([img_a, img_b])
+
+    def _get_label(self, i):
+        try:
+            #label = int(self.split_list[i][:self.split_list[i].find('_')]) - 1
+            label = int(self.split_list[i][:self.split_list[i].find('_')])
+        except:
+            label = int(self.split_list[i][:self.split_list[i].find('/')])
+        return label
+
+    def get_example(self, i):
+        # It reads the i-th image/label pair and return a preprocessed image.
+        x, y = self._get_image(i), self._get_label(i)
+        return x.astype(np.float32), y
+
+
+class PreprocessedRegressionDataset(chainer.dataset.DatasetMixin):
     def __init__(
             self,
             path,
@@ -97,7 +144,7 @@ class PreprocessedDataset(chainer.dataset.DatasetMixin):
             #label = int(self.split_list[i][:self.split_list[i].find('_')]) - 1
             label = float(self.split_list[i][:self.split_list[i].find('_')])
         except:
-            label = int(self.split_list[i][:self.split_list[i].find('/')])
+            label = float(self.split_list[i][:self.split_list[i].find('/')])
         return label
 
     def get_example(self, i):
