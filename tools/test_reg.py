@@ -76,7 +76,8 @@ def main():
 
     tp_cnt = 0
     for num in range(test_dataset.__len__()):
-        input, label = test_dataset.get_example(num)
+        input, _ = test_dataset.get_example(num)
+        label = float(test_dataset.split_list[num][:test_dataset.split_list[num].find('_')])
         x = np.expand_dims(input, axis=0)
         if args.gpu >= 0:
             x = chainer.cuda.to_gpu(x)
