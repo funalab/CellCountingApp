@@ -84,7 +84,7 @@ def main():
         y = model.predict(x)
         if args.gpu >= 0:
             y = chainer.cuda.to_cpu(y.data)
-        pre = y[0] * 10
+        pre = y[0][0] * 10
 
         if int(round(label)) == pre:
             print('True')
