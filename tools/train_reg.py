@@ -38,7 +38,7 @@ def main():
     ap.add_argument('--batchsize', '-b', type=int, default=5, help='Specify Batchsize')
     ap.add_argument('--crop_size', nargs='?', default='(640, 640)', help='Specify crop size (default (y,x) = (640,640))')
     ap.add_argument('--coordinate', nargs='?', default='(780, 1480)', help='Specify initial coordinate (default (y,x) = (1840,700))')
-
+    ap.add_argument('--optimizer', default='SGD', help='Optimizer [SGD, MomentumSGD, Adam]')
     args = ap.parse_args()
     argvs = sys.argv
     psep = '/'
@@ -75,9 +75,15 @@ def main():
         model.to_gpu()
 
     print('init optimizer...')
-    #optimizer = chainer.optimizers.Adam()
-    optimizer = chainer.optimizers.SGD(lr=0.0001)
-    #optimizer = chainer.optimizers.MomentumSGD(lr=0.01)
+    if args.optimizer == 'SGD':
+        optimizer = chainer.optimizers.SGD(lr=0.0001)
+    elif args.optimizer == 'MomentumSGD':
+        optimizer = chainer.optimizers.MomentumSGD(lr=0.01)
+    elif args.optimizer == 'Adam':
+        optimizer = chainer.optimizers.Adam()
+    else:
+        print('Specify optimizer name')
+        sys.exit()
     optimizer.setup(model)
     optimizer.add_hook(chainer.optimizer_hooks.WeightDecay(rate=0.0001))
 
