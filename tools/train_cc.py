@@ -22,7 +22,7 @@ sys.path.append(os.getcwd())
 mpl.use('Agg')
 
 from lib.dataset import PreprocessedClassificationDataset
-from lib.model import CellClassificationModel as CCM
+from lib.model import CCNet
 from lib.wrapper import Classifier
 
 def main():
@@ -62,7 +62,7 @@ def main():
 
     print('init model construction')
     model = Classifier(
-        CCM(
+        CCNet(
             n_class=args.nclass
             ), lossfun=F.softmax_cross_entropy
         )

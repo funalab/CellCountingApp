@@ -26,7 +26,7 @@ def crop_pair_2d(
         image1,
         image2=None,
         crop_size=(640, 640),       # (y, x)
-        coordinate=(1840, 700),     # (y, x)
+        coordinate=(1840, 740),     # (y, x)
         aug_flag=True
 ):
     """ 2d {image, label} patches are cropped from array.
@@ -44,8 +44,8 @@ def crop_pair_2d(
     cropped_images1 = []
 
     if aug_flag:
-        x_var = int(round((0.5 - random.random()) * 5))
-        y_var = int(round((0.5 - random.random()) * 5))
+        x_var = int(round((1.0 - 2.0 * random.random()) * 10))
+        y_var = int(round((1.0 - 2.0 * random.random()) * 10))
     else:
         x_var, y_var = 0, 0
 
@@ -67,7 +67,7 @@ class PreprocessedClassificationDataset(chainer.dataset.DatasetMixin):
             path,
             split_list,
             crop_size='(640, 640)',
-            coordinate='(780, 1480)',
+            coordinate='(1840, 740)',
             train=True
     ):
         """ Dataset preprocessing parameters
@@ -86,12 +86,18 @@ class PreprocessedClassificationDataset(chainer.dataset.DatasetMixin):
         return len(self.split_list)
 
     def _get_image(self, i):
-        img_a = min_max_normalize_one_image(crop_pair_2d(
-            np.rot90(io.imread(os.path.join(self._root_path, self.split_list[i], 'a.jpeg'))).transpose(2, 0, 1)
-            , crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
-        img_b = min_max_normalize_one_image(crop_pair_2d(
-            np.rot90(io.imread(os.path.join(self._root_path, self.split_list[i], 'b.jpeg'))).transpose(2, 0, 1)
-            , crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
+        # img_a = min_max_normalize_one_image(crop_pair_2d(
+        #     np.rot90(io.imread(os.path.join(self._root_path, self.split_list[i], 'a.jpeg'))).transpose(2, 0, 1)
+        #     , crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
+        # img_b = min_max_normalize_one_image(crop_pair_2d(
+        #     np.rot90(io.imread(os.path.join(self._root_path, self.split_list[i], 'b.jpeg'))).transpose(2, 0, 1)
+        #     , crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
+        img_a = min_max_normalize_one_image(
+            crop_pair_2d(io.imread(os.path.join(self._root_path, self.split_list[i], 'a.jpeg')).transpose(2, 0, 1),
+            crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
+        img_b = min_max_normalize_one_image(
+            crop_pair_2d(io.imread(os.path.join(self._root_path, self.split_list[i], 'b.jpeg')).transpose(2, 0, 1),
+            crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
         return np.concatenate([img_a, img_b])
 
     def _get_label(self, i):
@@ -114,7 +120,7 @@ class PreprocessedRegressionDataset(chainer.dataset.DatasetMixin):
             path,
             split_list,
             crop_size='(640, 640)',
-            coordinate='(780, 1480)',
+            coordinate='(1840, 740)',
             train=True
     ):
         """ Dataset preprocessing parameters
@@ -133,12 +139,18 @@ class PreprocessedRegressionDataset(chainer.dataset.DatasetMixin):
         return len(self.split_list)
 
     def _get_image(self, i):
-        img_a = min_max_normalize_one_image(crop_pair_2d(
-            np.rot90(io.imread(os.path.join(self._root_path, self.split_list[i], 'a.jpeg'))).transpose(2, 0, 1)
-            , crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
-        img_b = min_max_normalize_one_image(crop_pair_2d(
-            np.rot90(io.imread(os.path.join(self._root_path, self.split_list[i], 'b.jpeg'))).transpose(2, 0, 1)
-            , crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
+        # img_a = min_max_normalize_one_image(crop_pair_2d(
+        #     np.rot90(io.imread(os.path.join(self._root_path, self.split_list[i], 'a.jpeg'))).transpose(2, 0, 1)
+        #     , crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
+        # img_b = min_max_normalize_one_image(crop_pair_2d(
+        #     np.rot90(io.imread(os.path.join(self._root_path, self.split_list[i], 'b.jpeg'))).transpose(2, 0, 1)
+        #     , crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
+        img_a = min_max_normalize_one_image(
+            crop_pair_2d(io.imread(os.path.join(self._root_path, self.split_list[i], 'a.jpeg')).transpose(2, 0, 1),
+            crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
+        img_b = min_max_normalize_one_image(
+            crop_pair_2d(io.imread(os.path.join(self._root_path, self.split_list[i], 'b.jpeg')).transpose(2, 0, 1),
+            crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
         return np.concatenate([img_a, img_b])
 
     def _get_label(self, i):

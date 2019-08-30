@@ -9,7 +9,7 @@ import chainer.functions as F
 import chainer.links as L
 from chainer.training import extensions
 
-class CellClassificationModel(Chain):
+class CCNet(Chain):
     def __init__(self, n_class=10):
         initializer = chainer.initializers.HeNormal()
         super(CellClassificationModel, self).__init__(

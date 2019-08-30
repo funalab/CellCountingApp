@@ -22,7 +22,7 @@ sys.path.append(os.getcwd())
 mpl.use('Agg')
 
 from lib.dataset import PreprocessedRegressionDataset
-from lib.model import CellClassificationModel as CCM
+from lib.model import CCNet
 from lib.wrapper import Regressor
 
 def main():
@@ -37,7 +37,7 @@ def main():
     ap.add_argument('--epoch', '-e', type=int, default=10, help='Specify number of sweeps over the dataset to train')
     ap.add_argument('--batchsize', '-b', type=int, default=5, help='Specify Batchsize')
     ap.add_argument('--crop_size', nargs='?', default='(640, 640)', help='Specify crop size (default (y,x) = (640,640))')
-    ap.add_argument('--coordinate', nargs='?', default='(780, 1480)', help='Specify initial coordinate (default (y,x) = (1840,700))')
+    ap.add_argument('--coordinate', nargs='?', default='(1840, 740)', help='Specify initial coordinate (default (y,x) = (1840,700))')
     ap.add_argument('--optimizer', default='SGD', help='Optimizer [SGD, MomentumSGD, Adam]')
     args = ap.parse_args()
     argvs = sys.argv
@@ -59,9 +59,14 @@ def main():
         train=False
     )
 
+
+    import skimage.io as io
+    img, label = train_dataset.get_example(0)
+    io.imsave('hoge.tif', np.array(img[0:3] * 255).astype(np.uint8).transpose(0, 1, 2))
+
     print('init model construction')
     model = Regressor(
-        CCM(
+        CCNet(
             n_class=1
             ), lossfun=F.mean_squared_error
         )
