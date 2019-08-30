@@ -120,7 +120,8 @@ def main():
     evaluator = extensions.Evaluator(validation_iter, model, device=args.gpu)
     trainer.extend(evaluator, trigger=(1, 'epoch'))
 
-    trainer.extend(extensions.ExponentialShift('lr', 0.1), trigger=(50, 'epoch'))
+    if args.optimizer == 'SGD':
+        trainer.extend(extensions.ExponentialShift('lr', 0.1), trigger=(50, 'epoch'))
 
     trigger = triggers.MinValueTrigger('validation/main/loss', trigger=(1, 'epoch'))
     trainer.extend(extensions.snapshot_object(model, filename='best_loss_model'), trigger=trigger)

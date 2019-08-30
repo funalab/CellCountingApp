@@ -14,11 +14,13 @@ def min_max_normalize_one_image(image):
         out: the normalized nd image
     """
 
-    max_int = image.max()
-    min_int = image.min()
-    out = (image.astype(np.float32) - min_int) / (max_int - min_int)
+    image = image.astype(np.float32)
+    for i in range(len(image)):
+        max_int = image[i].max()
+        min_int = image[i].min()
+        image[i] = (image[i] - min_int) / (max_int - min_int)
 
-    return out
+    return image
 
 def crop_pair_2d(
         image1,
@@ -42,8 +44,8 @@ def crop_pair_2d(
     cropped_images1 = []
 
     if aug_flag:
-        x_var = int(round((0.5 - random.random()) * 10))
-        y_var = int(round((0.5 - random.random()) * 10))
+        x_var = int(round((0.5 - random.random()) * 5))
+        y_var = int(round((0.5 - random.random()) * 5))
     else:
         x_var, y_var = 0, 0
 
