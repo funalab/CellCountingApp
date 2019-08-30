@@ -139,18 +139,18 @@ class PreprocessedRegressionDataset(chainer.dataset.DatasetMixin):
         return len(self.split_list)
 
     def _get_image(self, i):
-        # img_a = min_max_normalize_one_image(crop_pair_2d(
-        #     np.rot90(io.imread(os.path.join(self._root_path, self.split_list[i], 'a.jpeg'))).transpose(2, 0, 1)
-        #     , crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
-        # img_b = min_max_normalize_one_image(crop_pair_2d(
-        #     np.rot90(io.imread(os.path.join(self._root_path, self.split_list[i], 'b.jpeg'))).transpose(2, 0, 1)
-        #     , crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
-        img_a = min_max_normalize_one_image(
-            crop_pair_2d(io.imread(os.path.join(self._root_path, self.split_list[i], 'a.jpeg')).transpose(2, 0, 1),
-            crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
-        img_b = min_max_normalize_one_image(
-            crop_pair_2d(io.imread(os.path.join(self._root_path, self.split_list[i], 'b.jpeg')).transpose(2, 0, 1),
-            crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
+        img_a = min_max_normalize_one_image(crop_pair_2d(
+            np.rot90(io.imread(os.path.join(self._root_path, self.split_list[i], 'a.jpeg'))).transpose(2, 0, 1)
+            , crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
+        img_b = min_max_normalize_one_image(crop_pair_2d(
+            np.rot90(io.imread(os.path.join(self._root_path, self.split_list[i], 'b.jpeg'))).transpose(2, 0, 1)
+            , crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
+        #img_a = min_max_normalize_one_image(
+        #    crop_pair_2d(io.imread(os.path.join(self._root_path, self.split_list[i], 'a.jpeg')).transpose(2, 0, 1),
+        #    crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
+        #img_b = min_max_normalize_one_image(
+        #    crop_pair_2d(io.imread(os.path.join(self._root_path, self.split_list[i], 'b.jpeg')).transpose(2, 0, 1),
+        #    crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
         return np.concatenate([img_a, img_b])
 
     def _get_label(self, i):

@@ -11,38 +11,37 @@ from chainer.training import extensions
 
 class CCNet(Chain):
     def __init__(self, n_class=10):
-        initializer = chainer.initializers.HeNormal()
-        super(CellClassificationModel, self).__init__(
-            conv1 = L.Convolution2D(None, 32,  11, initialW=initializer),
-            bn1 = L.BatchNormalization(32),
-            conv2 = L.Convolution2D(32, 32,  11, initialW=initializer),
-            bn2 = L.BatchNormalization(32),
-            conv3 = L.Convolution2D(32, 64, 9, initialW=initializer),
-            bn3 = L.BatchNormalization(64),
+        super(CCNet, self).__init__()
+        with self.init_scope():
+            self.conv1 = L.Convolution2D(None, 32, 11)
+            self.bn1 = L.BatchNormalization(32)
+            self.conv2 = L.Convolution2D(None, 32,  11)
+            self.bn2 = L.BatchNormalization(32)
+            self.conv3 = L.Convolution2D(None, 64, 9)
+            self.bn3 = L.BatchNormalization(64)
 
-            conv4 = L.Convolution2D(64, 64, 9, initialW=initializer),
-            bn4 = L.BatchNormalization(64),
-            conv5 = L.Convolution2D(64, 64, 9, initialW=initializer),
-            bn5 = L.BatchNormalization(64),
-            conv6 = L.Convolution2D(64, 128, 7, initialW=initializer),
-            bn6 = L.BatchNormalization(128),
+            self.conv4 = L.Convolution2D(None, 64, 9)
+            self.bn4 = L.BatchNormalization(64)
+            self.conv5 = L.Convolution2D(None, 64, 9)
+            self.bn5 = L.BatchNormalization(64)
+            self.conv6 = L.Convolution2D(None, 128, 7)
+            self.bn6 = L.BatchNormalization(128)
 
-            conv7 = L.Convolution2D(128, 128, 7, initialW=initializer),
-            bn7 = L.BatchNormalization(128),
-            conv8 = L.Convolution2D(128, 256, 5, initialW=initializer),
-            bn8 = L.BatchNormalization(256),
+            self.conv7 = L.Convolution2D(None, 128, 7)
+            self.bn7 = L.BatchNormalization(128)
+            self.conv8 = L.Convolution2D(None, 256, 5)
+            self.bn8 = L.BatchNormalization(256)
 
-            conv9 = L.Convolution2D(256, 256, 5, initialW=initializer),
-            bn9 = L.BatchNormalization(256),
-            conv10 = L.Convolution2D(256, 256, 5, initialW=initializer),
-            bn10 = L.BatchNormalization(256),
-            conv11 = L.Convolution2D(256, 256, 3, initialW=initializer),
-            bn11 = L.BatchNormalization(256),
+            self.conv9 = L.Convolution2D(None, 256, 5)
+            self.bn9 = L.BatchNormalization(256)
+            self.conv10 = L.Convolution2D(None, 256, 5)
+            self.bn10 = L.BatchNormalization(256)
+            self.conv11 = L.Convolution2D(None, 256, 3)
+            self.bn11 = L.BatchNormalization(256)
 
-            fc12 = L.Linear(None, 10240, initialW=initializer),
-            fc13 = L.Linear(None, 1028, initialW=initializer),
-            fc14 = L.Linear(None, n_class, initialW=initializer)
-        )
+            self.fc12 = L.Linear(None, 10240)
+            self.fc13 = L.Linear(None, 1028)
+            self.fc14 = L.Linear(None, n_class)
 
     def __call__(self, x):
         h = F.relu(self.conv1(x))
