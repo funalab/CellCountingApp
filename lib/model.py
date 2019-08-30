@@ -43,9 +43,10 @@ class CCNet(Chain):
             self.conv12 = L.Convolution2D(None, 256, 3, 1, 1)
             self.bn12 = L.BatchNormalization(256)
 
-            self.fc13 = L.Linear(None, 10240)
-            self.fc14 = L.Linear(None, 1028)
-            self.fc15 = L.Linear(None, n_class)
+            self.fc13 = L.Linear(None, 12800)
+            self.fc14 = L.Linear(None, 6400)
+            self.fc15 = L.Linear(None, 1028)
+            self.fc16 = L.Linear(None, n_class)
 
     def __call__(self, x):
 
@@ -75,4 +76,5 @@ class CCNet(Chain):
 
         h = F.dropout(F.relu(self.fc13(h)))
         h = F.dropout(F.relu(self.fc14(h)))
-        return self.fc15(h)
+        h = F.dropout(F.relu(self.fc15(h)))
+        return self.fc16(h)
