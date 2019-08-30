@@ -23,7 +23,7 @@ sys.path.append(os.getcwd())
 mpl.use('Agg')
 
 from lib.dataset import PreprocessedRegressionDataset
-from lib.model import CellClassificationModel as CCM
+from lib.model import CCNet
 from lib.wrapper import Regressor
 
 def main():
@@ -57,7 +57,7 @@ def main():
 
     print('init model construction')
     model = Regressor(
-        CCM(
+        CCNet(
             n_class=1
             ), lossfun=F.mean_squared_error
         )
