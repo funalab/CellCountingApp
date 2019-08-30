@@ -124,7 +124,6 @@ def main():
 
     # LogReport
     trainer.extend(
-        trigger=(1, 'epoch'),
         extension=extensions.LogReport()
     )
 
