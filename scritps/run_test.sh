@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 python -W ignore tools/test_reg.py \
     --indir datasets/test \

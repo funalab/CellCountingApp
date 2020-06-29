@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 python -W ignore tools/train_reg.py \
     --indir datasets/train \

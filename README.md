@@ -58,7 +58,9 @@ neural networks on the server.
 
         ![quick_start](images/ccapp_start.png)
 
+        <div style="text-align: center;">
         Figure 1. Screen of CCAPP on the web browser.
+        </div>
 
 5. Input images and press the ``Counting'' button.
 
@@ -70,14 +72,18 @@ neural networks on the server.
 
    ![quick_start](images/ccapp_input.png)
    
+   <div style="text-align: center;">
    Figure 2. Screen after inputting images.
+   </div>
 
    After a short time, the results of the cell count will be
    displayed on the screen (Figure 3).
 
    ![quick_start](images/ccapp_result.png)
    
+   <div style="text-align: center;">
    Figure 3. Screen showing the result of cell count.
+   </div>
 
 
 
@@ -130,14 +136,14 @@ neural networks on the server.
 2. Train CNN model with the above-prepared dataset.
 
     ```sh
-    % sh scripts/run_train.sh
+    % ./scripts/run_train.sh
     ```
 
 3. Inference on test dataset.
 
     ```sh
     % cp results/train*/best_loss_model ccapp/app/core/models/reg.npz
-    % sh scripts/run_test.sh
+    % ./scripts/run_test.sh
     ```
 
 
