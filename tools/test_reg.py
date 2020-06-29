@@ -84,23 +84,29 @@ def main():
         y = model.predict(x)
         if args.gpu >= 0:
             y = chainer.cuda.to_cpu(y.data)
+        else:
+            y = y.data
         pre = y[0][0] * 10
 
-        if int(round(label)) == pre:
-            print('True')
-            tp_cnt += 1
-        else:
-            print('False')
+        #if int(round(label)) == int(round(pre)):
+        #    print('True')
+        #    tp_cnt += 1
+        #else:
+        #    print('False')
+        print()
+        print('inference: {}'.format(pre))
+        print('ground truth: {}'.format(label))
 
         with open(os.path.join(opbase, 'result.csv'), 'a') as f:
             writer = csv.writer(f, lineterminator='\n')
             writer.writerow([test_dataset.split_list[num], pre, label])
 
-    with open(os.path.join(opbase, 'result.txt'), 'w') as f:
-        f.write('Accuracy: {}%'.format(( tp_cnt / test_dataset.__len__() ) * 100))
+    #with open(os.path.join(opbase, 'result.txt'), 'w') as f:
+    #    f.write('Accuracy: {}%'.format(( tp_cnt / test_dataset.__len__() ) * 100))
 
     end_time = time.time()
     etime = end_time - start_time
+    print()
     print('Elapsed time is (sec) {}'.format(etime))
     print('CCN Completed Process!')
 
