@@ -1,7 +1,7 @@
 # CCAPP: Cell Counting Application
 
-This is the code for ``Direct cell counting using macro-scale
-smartphone images of cell aggregates.''  This project is carried out
+This is the code for "Direct cell counting using macro-scale
+smartphone images of cell aggregates."  This project is carried out
 in cooperation with [Funahashi lab](https://fun.bio.keio.ac.jp/) and
 [Takemura lab](http://www.takemura.mech.keio.ac.jp/) at Keio
 University.
@@ -54,37 +54,26 @@ neural networks on the server.
 
         The local server will stand up and display the URL. Please
         copy and paste the URL into your web browser. After that, you
-        will be redirected to the application screen (Figure 1).
+        will be redirected to the application screen (screenshot is
+        shown below).
 
         ![quick_start](images/ccapp_start.png)
 
-        <div style="text-align: center;">
-        Figure 1. Screen of CCAPP on the web browser.
-        </div>
 
-5. Input images and press the ``Counting'' button.
+5. Input images and press the "Counting" button.
 
-   Press the ``L'' button to select an input image. In an
-   example, select `images/L.png` (Figure 2). Likewise, press the
-   ``R'' button to select an input image. In an example, select
-   `images/R.png` (Figure 2). Finally, press the ``Counting''
-   button.
+   Press the "L" button to select an input image. In an example,
+   select `images/L.png` (screenshot is shown below). Likewise, press
+   the "R" button to select an input image. In an example, select
+   `images/R.png`. Finally, press the "Counting" button.
 
    ![quick_start](images/ccapp_input.png)
    
-   <div style="text-align: center;">
-   Figure 2. Screen after inputting images.
-   </div>
-
-   After a short time, the results of the cell count will be
-   displayed on the screen (Figure 3).
+   After a short time, the results of the cell count will be displayed
+   on the screen (screenshot is shown below).
 
    ![quick_start](images/ccapp_result.png)
    
-   <div style="text-align: center;">
-   Figure 3. Screen showing the result of cell count.
-   </div>
-
 
 
 
