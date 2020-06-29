@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <!-- tiitle -->
+    <title>{% block title %}CCA{% endblock %}</title>
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{% static 'app/resource/favicon.png' %}" >
+    <link rel="apple-touch-icon" href="{% static 'app/resource/apptouch.png' %}" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- jquery -->
+    <script type="text/javascript" src="{% static 'app/js/jquery.min.js' %}"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'app/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/rewritebootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/base.css' %}">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="{% static 'app/fontawesome-free-5.9.0-web/css/all.css' %}">
+    <!-- kurukuru -->
+    <link rel="stylesheet" href="{% static 'app/css/kurukuru.css' %}">
+
+  </head>
+
+  <body>
+    <div id="wrapper">
+
+    <main>
+    <nav class="navbar fixed-top bg-primary">
+      <ul class="navbar-nav mr-lg-2 float-lg-left">
+        <a class="navbar-brand" disable >
+          <b>CCA</b>: Cell Counting App
+          <!-- <i class="fas fa-bong"></i> -->
+        <a>
+      </ul>
+
+      <ul class="navbar-nav mr-lg-2 float-lg-right">
+        <a href="#" class="navbar-brand" disable>
+          <img src="{% static 'app/resource/celllabo_logo_wh.png' %}" class="custom_button mx-auto b-block"  width="40px" height="40px" disable>
+        </a>
+      </ul>
+    </nav>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    </main>
+
+    <footer>
+      <nav class="navbar fixed-bottom bg-warning">
+          <a class="nav-link" href="/uploader" class="navbar-brand"><b>Let's Start</b></a>
+          <a class="nav-link" href="/uploader" class="navbar-brand"><b>Reset</b></a>
+      </nav>
+    </footer>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script type="text/javascript" src="{% static 'app/js/jquery-3.3.1.slim.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'app/js/popper.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'app/bootstrap/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>

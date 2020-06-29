@@ -1,0 +1,54 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block content %}
+
+  <div id='mtop'>
+    <p> 
+<!--     {% for download_url in download_url_list %}
+          <image src="{{ download_url }}" width="128" height="128">
+    {% endfor %} -->
+    </p>
+    </br></br>
+  </div>
+
+
+  <div id='result'>
+    <span>
+      <i>{{ result }}×10<sup>6</sup></i>
+    </span>cells
+  </div>
+
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c');
+
+
+p{
+  text-align: center;
+  font-size:5em;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+span{
+  font-size:3em;
+}
+
+#result{
+  text-align: center;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+#mtop{
+  margin-top: 100px;
+}
+
+body {
+      padding-top: 70px;
+      padding-bottom: 70px;
+      background: #dcdcdc;
+    }
+
+</style>
+
+{% endblock %}

@@ -1,0 +1,144 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+ <div id="loading" style="text-align:center">
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p><i class="fas fa-spinner fa-10x fa-spin"></i></p>
+</div>
+    <form action="uploader" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.management_form}}
+        {% if form.errors %}
+        {{form.errors}}
+        {% endif %}
+        <!-- サムネイル表示領域 -->
+          <div class="row">
+            <div class="col-12">
+              <p><!-- Taking Photos of Cells! --></p>
+              <p>&nbsp;</p>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <div id="canvas-container">
+                    <span id="im2"></span>
+                    <p></p>
+                    </div>
+                </div>
+              </div>
+              <div class="input-group" id="file2">
+                <label class="input-group-btn mx-0">
+                    <span class="btn btn-primary">
+                        &nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp <b>L</b> &nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp
+                        {{ form.1.file }}
+                    </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <div id="canvas-container">
+                    <span id="im1"></span>
+                    <p></p>
+                    </div>
+                </div>
+              </div>
+              <div class="input-group" id="file1">
+                <label class="input-group-btn mx-0">
+                    <span class="btn btn-primary">
+                        &nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp <b>R</b> &nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp
+                        {{ form.0.file }}
+                    </span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div style="text-align:center;">
+                <p></p>
+                <button type="submit" class="btn btn-success rounded-pill" id="cntbtn">Counting</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 力技  最初にくるくるを読み込ませる必要があるため　-->
+        </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>     
+        <div><i class="fas fa-spinner fa-1x fa-spin"></i></div>
+</form>
+
+
+<script type="text/javascript">
+  //スクロール禁止 スマホ用　力技で最初にくるくるを読み込ませる必要があるため,めっちゃ下にくるくるいるけど見せたくない
+  document.addEventListener('touchmove', function(e) {e.preventDefault();}, {passive: false});
+  // アップロード画像のサムネ表示タスク 1枚目と２枚目ように記載されている
+  $(function() {
+    // アップロードするファイルを選択
+    $('#id_form-0-file').change(function() {
+      var file = $(this).prop('files')[0];
+
+      // 画像以外は処理を停止
+      if (! file.type.match('image.*')) {
+        // クリア
+        $(this).val('');
+        $('#im1').html('');
+        return;
+      }
+
+      // 画像表示
+      var reader = new FileReader();
+      reader.onload = function() {
+        var img_src = $('<img>').attr('src', reader.result).attr('width', 145).attr('height', 200);
+        $('#im1').html(img_src);
+      }
+      reader.readAsDataURL(file);
+    });
+  });
+
+  $(function() {
+    // アップロードするファイルを選択
+    $('#id_form-1-file').change(function() {
+      var file = $(this).prop('files')[0];
+
+      // 画像以外は処理を停止
+      if (! file.type.match('image.*')) {
+        // クリア
+        $(this).val('');
+        $('#im2').html('');
+        return;
+      }
+      // 画像表示
+      var reader = new FileReader();
+      reader.onload = function() {
+        var img_src = $('<img>').attr('src', reader.result).attr('width', 145).attr('height', 200);
+        $('#im2').html(img_src);
+      }
+      reader.readAsDataURL(file);
+    });
+  });
+
+  // カウントボタン押下時に背景ぼかしてくるくる表示(::: なんにもできなくする)
+  $("#cntbtn").click(function(){
+      $('#loading').show()
+  });
+</script>
+
+  {% for download_url in download_url_list %}
+      <p><a href="{{ download_url }}">{{ download_url }}</a></p>
+  {% endfor %}
+
+{% endblock %}

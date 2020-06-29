@@ -1,0 +1,10 @@
+.bg-primary {
+  background: linear-gradient(to right,#000066, #4682B4);
+  color: #FFFFFF;
+}
+.bg-danger {
+  background: linear-gradient(to right,#CC0000, #666666);
+  color: #FFFFFF;
+  border-style: none;
+
+}

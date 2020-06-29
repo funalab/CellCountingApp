@@ -1,0 +1,60 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block content %}
+  <h1>Title</h1>
+
+  <p>
+    <a class="btn btn-primary bg-danger" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapseExample">
+      Intoroduction
+    </a>
+  </p>
+  <div class="collapse" id="collapse1">
+    <div class="card card-body">
+      intoro elm.
+      this app is for minor research of imashiro.
+    </div>
+  </div>
+
+  <p>
+    <a class="btn btn-primary bg-danger" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapseExample">
+      Abstract
+    </a>
+  </p>
+  <div class="collapse" id="collapse2">
+    <div class="card card-body">
+      this is summary of this paper.
+    </div>
+  </div>
+
+  <p>
+    <a class="btn btn-primary bg-danger" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapseExample">
+      How to use this app ?
+    </a>
+  </p>
+    <div class="collapse" id="collapse3">
+      <div class="card card-body">
+        this is summary of this paper.
+      </div>
+    </div>
+
+<p><br></p>
+<p><br></p>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="input-group" id="file2">
+          <label class="input-group-btn mx-auto">
+            <p>
+              <a class="btn btn-primary bg-info" href="{% url 'app:uploader' %}">
+                Let's Start
+              </a>
+            </p>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- <img src="{% static 'app/resource/imashiro.jpg' %}" alt=""> -->
+    </div>
+{% endblock %}
