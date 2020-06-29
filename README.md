@@ -77,7 +77,7 @@ neural networks on the server.
 
 
 
-## How to train and validation
+## How to train and inference
 
 
 1. Download and unzip the datasets.
@@ -127,13 +127,29 @@ neural networks on the server.
     ```sh
     % ./scripts/run_train.sh
     ```
+    The results of the training are stored in the directory `results/train_*`.
+    Training result directory will have the following structure:
+
+    ```sh
+    results/
+      +-- train_*/
+          +-- best_loss_model (Trained model in format `npz`)
+          +-- cg.dot (Dump file describing the network structure)
+          +-- log (Training log)
+          +-- loss.png (Figure of the learning curve of loss)
+    ```
+
 
 3. Inference on test dataset.
 
     ```sh
-    % cp results/train*/best_loss_model ccapp/app/core/models/reg.npz
+    % cp results/train_*/best_loss_model ccapp/app/core/models/reg.npz
     % ./scripts/run_test.sh
     ```
+
+    The results of the inference are stored in the directory `results/test_*`.
+    In the directory, CSV file with the results of the inference are stored.
+
 
 
 # Acknowledgement
