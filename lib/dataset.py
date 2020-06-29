@@ -145,6 +145,14 @@ class PreprocessedRegressionDataset(chainer.dataset.DatasetMixin):
         img_b = min_max_normalize_one_image(crop_pair_2d(
             np.rot90(io.imread(os.path.join(self._root_path, self.split_list[i], 'b.jpeg'))).transpose(2, 0, 1)
             , crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))
+
+#        io.imsave('dataset_roi/roi_{}_r.tif'.format(self.split_list[i][self.split_list[i].find('/')+1:]), crop_pair_2d(
+#            np.rot90(io.imread(os.path.join(self._root_path, self.split_list[i], 'a.jpeg'))).transpose(2, 0, 1)
+#            , crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train).transpose(0, 1, 2))
+#        io.imsave('dataset_roi/roi_{}_l.tif'.format(self.split_list[i][self.split_list[i].find('/')+1:]), crop_pair_2d(
+#            np.rot90(io.imread(os.path.join(self._root_path, self.split_list[i], 'b.jpeg'))).transpose(2, 0, 1)
+#            , crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train).transpose(0, 1, 2))
+
         #img_a = min_max_normalize_one_image(
         #    crop_pair_2d(io.imread(os.path.join(self._root_path, self.split_list[i], 'a.jpeg')).transpose(2, 0, 1),
         #    crop_size=self.crop_size, coordinate=self.coordinate, aug_flag=self.train))

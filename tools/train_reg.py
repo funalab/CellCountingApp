@@ -60,9 +60,12 @@ def main():
     )
 
 
-    import skimage.io as io
-    img, label = train_dataset.get_example(0)
-    io.imsave('hoge.tif', np.array(img[0:3] * 255).astype(np.uint8).transpose(0, 1, 2))
+#    import skimage.io as io
+#    for i in range(train_dataset.__len__()):
+#        img, label = train_dataset.get_example(i)
+#        print(label)
+#        io.imsave('dataset_roi/roi_r_{}_{0:03d}.tif'.format(label[0], i+1), np.array(img[0:3] * 255).astype(np.uint8).transpose(0, 1, 2))
+#        io.imsave('dataset_roi/roi_l_{}_{0:03d}.tif'.format(label[0], i+1), np.array(img[3:6] * 255).astype(np.uint8).transpose(0, 1, 2))
 
     print('init model construction')
     model = Regressor(
@@ -81,16 +84,19 @@ def main():
 
     print('init optimizer...')
     if args.optimizer == 'SGD':
-        optimizer = chainer.optimizers.SGD(lr=0.0001)
+        optimizer = chainer.optimizers.SGD(lr=0.00001)
     elif args.optimizer == 'MomentumSGD':
-        optimizer = chainer.optimizers.MomentumSGD(lr=0.01)
+        optimizer = chainer.optimizers.MomentumSGD(lr=0.00001)
     elif args.optimizer == 'Adam':
         optimizer = chainer.optimizers.Adam()
     else:
         print('Specify optimizer name')
         sys.exit()
     optimizer.setup(model)
-    optimizer.add_hook(chainer.optimizer_hooks.WeightDecay(rate=0.0001))
+    # optimizer.add_hook(chainer.optimizer_hooks.WeightDecay(rate=0.0001))
+    optimizer.add_hook(chainer.optimizer_hooks.Lasso(rate=0.0005))
+    # optimizer.add_hook(chainer.optimizer_hooks.Lasso(rate=0.001))
+    # optimizer.add_hook(chainer.optimizer_hooks.Lasso(rate=0.0001))
 
 
     ''' Updater '''
