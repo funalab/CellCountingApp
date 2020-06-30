@@ -115,12 +115,21 @@ neural networks on the server.
       |     |     +-- ...
       |     +-- ...
       +-- test/
-           +-- 1.8_1/
-           |     +-- a.jpeg (Tube image of aggregated cells taken from the left side)
-           |     +-- b.jpeg (Tube image of aggregated cells taken from the right side)
-           +-- 1.8_2/
-           +-- 1.8_3/
+      |    +-- 1.8_1/
+      |    |     +-- a.jpeg (Tube image of aggregated cells taken from the left side)
+      |    |     +-- b.jpeg (Tube image of aggregated cells taken from the right side)
+      |    +-- 1.8_2/
+      |    +-- 1.8_3/
+      |    +-- ...
+      +-- split_list/
+           +-- set1/
+           |      +-- train.list (List of data used for training of fold 1 in the cross-validation)
+           |      +-- validation.list (List of data used for validation of fold 1 in the cross-validation)
+           +-- set2/
+           +-- set3/
            +-- ...
+           |
+           +- test.list (List of data used for the test)
     ```
 
 2. Train CNN model with the above-prepared dataset.
