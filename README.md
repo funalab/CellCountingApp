@@ -26,6 +26,7 @@ neural networks on the server.
 - [NumPy](http://www.numpy.org)
 - [scikit-image](http://scikit-image.org/)
 - [Django 2.0+](https://www.djangoproject.com/)
+- [sqlparse](https://pypi.python.org/pypi/sqlparse/)
 
 
 ## QuickStart
