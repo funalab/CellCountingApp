@@ -101,7 +101,7 @@ neural networks on the server.
 
     Datasets directory will have the following structure:
 
-    ```sh
+    ```
     datasets/
       +-- train/
       |     +-- 01/
@@ -140,7 +140,7 @@ neural networks on the server.
     The results of the training are stored in the directory `results/train_*`.
     Training result directory will have the following structure:
 
-    ```sh
+    ```
     results/
       +-- train_*/
           +-- best_loss_model (Trained model in format `npz`)
